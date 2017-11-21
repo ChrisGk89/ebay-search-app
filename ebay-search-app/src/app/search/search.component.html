@@ -1,0 +1,27 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+<div class="container search-results-container">
+  <div class="row">
+    <input #searchBox class="form-control">
+    <p-dataList *ngIf="!loading && paginationOutput.totalEntries > 0 " 
+      [value]="searchResults" [paginator]="true" [rows]="entriesPerPage"
+       class="col" [rowsPerPageOptions]="[10,20,30]">
+      <p-header>Ebay search results</p-header>
+      <ng-template let-item pTemplate="item">
+        <div class="row">
+          <p-panel class="col">
+            <div class="row">
+            <img class="col-3" class="search-image" src="{{item.galleryURL}}">
+            <div class="item-detail col">
+              <div class="clearfix"> {{item.title}} - ${{item.sellingStatus[0].currentPrice[0].__value__}}</div>
+              <div class="clearfix">{{item.condition[0].conditionDisplayName.toString().match('New') !== null ? 'Brand New' : 'Used'}}</div>
+
+              <div class="clearfix">{{item.shippingInfo[0].shippingType == 'Free' ? 'Free Shipping' : ''}}</div>
+             
+            </div>
+            </div>
+          </p-panel>
+        </div>
+      </ng-template>
+    </p-dataList>
+  </div>
+</div>
